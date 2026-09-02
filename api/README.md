@@ -41,26 +41,37 @@ field), the success path, upstream 404 → `VEHICLE_NOT_FOUND`, upstream 5xx →
 `UPSTREAM_ERROR`, network failure → `UPSTREAM_UNAVAILABLE`, and config
 fail-fast validation.
 
-## Deploy — Render.com (free, simplest)
+## Deploy — Vercel (currently live)
+
+**Live now:** https://car-insurance-onboarding.vercel.app — this is the URL
+used as the endpoint in the Insait flow's API node.
+
+1. Push this project to GitHub (already done for this repo).
+2. Import the repo in [vercel.com](https://vercel.com).
+3. **Project Settings → General → Root Directory → `api`** (required —
+   `api/api/index.ts` and `api/vercel.json` live one level below the repo
+   root, so Vercel won't find them otherwise and will 404).
+4. Deploy. `api/api/index.ts` exports the Express app directly as the
+   serverless entrypoint; `api/vercel.json` rewrites every path to it since
+   Express does its own internal routing.
+
+No cold-sleep issue like Render's free tier, but serverless cold starts
+still apply — hit it once before a demo/recording to warm it up.
+
+## Deploy — Render.com (alternative)
 
 Render's free tier needs no credit card and no CLI — just a GitHub repo.
 
-1. Push this project to a GitHub repository (create one at
-   github.com/new, then `git remote add origin <url> && git push -u origin main`).
-2. Go to [render.com](https://render.com) and sign up / log in with GitHub.
-3. **New → Web Service** → pick this repo.
-4. Render auto-detects `render.yaml` at the repo root and pre-fills
+1. Go to [render.com](https://render.com) and sign up / log in with GitHub.
+2. **New → Web Service** → pick this repo.
+3. Render auto-detects `render.yaml` at the repo root and pre-fills
    everything (root dir `api`, build command, start command, env vars) — just
    click **Create Web Service**.
-5. First deploy takes a couple of minutes. You'll get a URL like
+4. First deploy takes a couple of minutes. You'll get a URL like
    `https://vehicle-info-api.onrender.com`.
 
 Note: on the free plan the service "sleeps" after ~15 minutes of no traffic
-and takes a few seconds to wake on the next request — fine for a demo, just
-hit it once before your interview/recording so it's warm.
-
-Use that URL (+ `/vehicle-info`) as the endpoint in the Insait flow's API
-node.
+and takes a few seconds to wake on the next request.
 
 ## Deploy — Google Cloud Run (alternative)
 
