@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: vehicle-info-api
+    runtime: node
+    rootDir: api
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: UPSTREAM_URL
+        value: https://insurance-webhook-945894769129.us-central1.run.app/vehicle-info
+      - key: UPSTREAM_TIMEOUT_MS
+        value: "5000"
