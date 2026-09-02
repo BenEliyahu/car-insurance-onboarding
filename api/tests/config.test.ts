@@ -12,9 +12,9 @@ describe("config", () => {
 
   it("falls back to defaults when env vars are unset", () => {
     delete process.env.UPSTREAM_TIMEOUT_MS;
-    const { config } = require("../src/config");
-    expect(config.upstreamTimeoutMs).toBe(5000);
-    expect(config.port).toBe(8080);
+    const { env } = require("../src/config");
+    expect(env.upstreamTimeoutMs).toBe(5000);
+    expect(env.port).toBe(8080);
   });
 
   it("throws at startup on a non-numeric UPSTREAM_TIMEOUT_MS instead of silently producing NaN", () => {

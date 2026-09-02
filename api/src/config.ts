@@ -7,7 +7,7 @@ function requireNumber(name: string, raw: string | undefined, fallback: number):
   return parsed;
 }
 
-export const config = {
+export const env = {
   port: requireNumber("PORT", process.env.PORT, 8080),
   upstreamUrl:
     process.env.UPSTREAM_URL ?? "https://insurance-webhook-945894769129.us-central1.run.app/vehicle-info",

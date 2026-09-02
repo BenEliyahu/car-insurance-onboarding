@@ -1,4 +1,4 @@
-import { config } from "../config";
+import { env } from "../config";
 import { VehicleData, VehicleInfoError } from "../types";
 
 interface UpstreamSuccess {
@@ -26,11 +26,11 @@ function isUpstreamSuccess(body: unknown): body is UpstreamSuccess {
  */
 export async function fetchVehicleInfo(licensePlate: string): Promise<VehicleData> {
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), config.upstreamTimeoutMs);
+  const timer = setTimeout(() => controller.abort(), env.upstreamTimeoutMs);
 
   let response: Response;
   try {
-    response = await fetch(config.upstreamUrl, {
+    response = await fetch(env.upstreamUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ license_plate: licensePlate }),
