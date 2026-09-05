@@ -15,7 +15,7 @@ export function createApp(): Express {
 
   app.get("/health", (_req, res) => res.status(200).json({ status: "ok" }));
 
-  app.use(express.static(path.join(__dirname, "..", "public")));
+  app.use(express.static(path.join(__dirname, "..", "public"), { extensions: ["html"] }));
 
   app.use(vehicleInfoRouter);
   app.use(vehicleInfoErrorHandler);
